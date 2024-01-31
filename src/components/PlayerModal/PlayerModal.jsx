@@ -2,8 +2,8 @@ import React from 'react'
 
 function PlayerModal() {
   return (
-    <div>PlayerModal</div>
-  )
+    <h1>PlayerModal</h1>
+  );
 }
 
-export default PlayerModal
+export default PlayerModal;
