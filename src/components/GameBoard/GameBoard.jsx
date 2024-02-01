@@ -2,6 +2,8 @@ import React, {useRef} from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
+import player1Image from '../../assets/images/player1.svg';
+import player2Image from '../../assets/images/player2.svg';
 
 function GameBoard() {
 
@@ -11,8 +13,15 @@ function GameBoard() {
 
 
   return (
-    <div className="grid grid-cols-6 gap-4 items-center mx-auto max-h-screen w-11/12  mt-auto mb-10 bg-green-500">
-      <div className="bg-red-400">Player 1 Score</div>
+    <div className="grid grid-cols-6 gap-4 items-center mx-auto max-h-screen w-11/12  mt-auto mb-10 bg-green-500 font-bold">
+      <div className="bg-red-400">
+        <img src={player1Image} alt="Player 1" className="w-full h-auto" />
+        <p>Player 1</p>
+        <p>Score:</p>
+        <button className="bg-green-600 text-white py-2 px-4 rounded">
+          It's your turn
+        </button>
+      </div>
       <div className="bg-green-900 col-span-4">
         {/* <h1>Canvas</h1> */}
         <Canvas orthographic camera = {{ position: cameraPosition.current, fov: 53, aspect: width / height, near: 1, far: 5000 }}>
@@ -25,7 +34,14 @@ function GameBoard() {
           <OrbitControls />
         </Canvas>
       </div>
-      <div className="bg-yellow-400 ">Player 2 Score</div>
+      <div className="bg-yellow-400">
+        <img src={player2Image} alt="Player 2" className="w-full h-auto" />
+        <p>Player 2</p>
+        <p>Score:</p>
+        <button className="bg-red-600 text-white py-2 px-4 rounded">
+          It's your turn
+        </button>
+      </div>
     </div>
   )
 }
