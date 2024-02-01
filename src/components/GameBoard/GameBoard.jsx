@@ -11,11 +11,11 @@ function GameBoard() {
 
 
   return (
-    <div className="grid grid-cols-3 items-center mx-auto max-h-screen w-11/12  mt-auto mb-10 bg-green-500">
+    <div className="grid grid-cols-6 gap-4 items-center mx-auto max-h-screen w-11/12  mt-auto mb-10 bg-green-500">
       <div className="bg-red-400">Player 1 Score</div>
-      <div className="bg-green-900">
-        <h1>Canvas</h1>
-        {/* <Canvas orthographic camera = {{ position: cameraPosition.current, fov: 53, aspect: width / height, near: 1, far: 5000 }}>
+      <div className="bg-green-900 col-span-4">
+        {/* <h1>Canvas</h1> */}
+        <Canvas orthographic camera = {{ position: cameraPosition.current, fov: 53, aspect: width / height, near: 1, far: 5000 }}>
           <ambientLight />
           <pointLight position={[10, 10, 10]} />
           <mesh>
@@ -23,7 +23,7 @@ function GameBoard() {
             <meshStandardMaterial side={THREE.DoubleSide} color={'orange'} />
           </mesh>
           <OrbitControls />
-        </Canvas> */}
+        </Canvas>
       </div>
       <div className="bg-yellow-400 ">Player 2 Score</div>
     </div>
