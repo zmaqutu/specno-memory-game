@@ -16,7 +16,7 @@ function App() {
         </button>
       </nav> */}
       <nav className="flex justify-between items-center bg-dark p-4">
-        <h1 className="mx-auto text-white font-bold text-memory">Memory</h1>
+        <h1 className="text-white font-bold text-memory flex items-center">Memory</h1>
         <button className="bg-red-600 text-white py-2 px-4 rounded">
           Exit Game
         </button>

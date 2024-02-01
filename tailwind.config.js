@@ -11,6 +11,9 @@ module.exports = {
       },
       fontSize: {
         'memory': '40.19px',
+      },
+      backgroundImage: {
+        'background': "url('/src/assets/background.svg')",
       }
     },
   },
