@@ -13,7 +13,7 @@ function GameBoard() {
 
 
   return (
-    <div className="grid grid-cols-6 gap-4 items-center mx-auto max-h-screen w-11/12  mt-auto mb-10 bg-green-500 font-bold">
+    <div className="grid grid-cols-6 gap-4 items-center mx-auto h-full mb-10 flex-1 overflow-hidden w-11/12  mt-auto  bg-green-500 font-bold">
       <div className="bg-red-400">
         <img src={player1Image} alt="Player 1" className="w-full h-auto" />
         <p>Player 1</p>
@@ -22,18 +22,15 @@ function GameBoard() {
           It's your turn
         </button>
       </div>
-      <div className="bg-green-900 col-span-4">
-        {/* <h1>Canvas</h1> */}
-        <Canvas orthographic camera = {{ position: cameraPosition.current, fov: 53, aspect: width / height, near: 1, far: 5000 }}>
+        <Canvas className="bg-green-900 col-span-4" orthographic camera = {{ position: cameraPosition.current, fov: 53, aspect: width / height, near: 1, far: 5000 }}>
           <ambientLight />
           <pointLight position={[10, 10, 10]} />
           <mesh>
             <planeGeometry args={[100, 100, 100]} />
             <meshStandardMaterial side={THREE.DoubleSide} color={'orange'} />
           </mesh>
-          <OrbitControls />
+          {/* <OrbitControls /> */}
         </Canvas>
-      </div>
       <div className="bg-yellow-400">
         <img src={player2Image} alt="Player 2" className="w-full h-auto" />
         <p>Player 2</p>

@@ -9,7 +9,7 @@ function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <div className="font-sans">
+    <div className="font-sans h-screen flex flex-col">
       {/* <nav >
         <h1 className="underline">Memory</h1>
         <button className="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#playerModal">
