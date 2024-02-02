@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
@@ -9,7 +9,27 @@ function GameBoard() {
 
   const width = window.innerWidth;
 	const height = window.innerHeight;
-  const cameraPosition = useRef([0,0,275]);
+  const cameraPosition = useRef([0,0,100]);
+
+  const [deck, setDeck] = useState({})
+
+  // a list of possible values for each suit
+  const cardValues = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+  const suits = ['Hearts','Clubs','Spades','Diamonds'];
+  initializeDeck()
+
+  /**
+   * A function to initialize the deck (numbers, suits, and Jokers)
+   */
+  function initializeDeck(){
+
+    const tempDeck = {}
+
+    for(let i = 0; i < suits.length;i++){
+      tempDeck[suits[i]] = cardValues;
+    }
+    console.log(tempDeck)
+  }
 
 
   return (
@@ -26,10 +46,10 @@ function GameBoard() {
           <ambientLight />
           <pointLight position={[10, 10, 10]} />
           <mesh>
-            <planeGeometry args={[100, 100, 100]} />
-            <meshStandardMaterial side={THREE.DoubleSide} color={'orange'} />
+            <planeGeometry args={[50, 70]} />
+            <meshStandardMaterial side={THREE.DoubleSide} color={'lightblue'} />
           </mesh>
-          {/* <OrbitControls /> */}
+          <OrbitControls />
         </Canvas>
       <div className="bg-yellow-400">
         <img src={player2Image} alt="Player 2" className="w-full h-auto" />
