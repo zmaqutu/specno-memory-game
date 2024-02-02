@@ -4,6 +4,7 @@ import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 import player1Image from '../../assets/images/player1.svg';
 import player2Image from '../../assets/images/player2.svg';
+import Card from '../Card/Card';
 
 function GameBoard() {
 
@@ -16,19 +17,19 @@ function GameBoard() {
   // a list of possible values for each suit
   const cardValues = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
   const suits = ['Hearts','Clubs','Spades','Diamonds'];
-  initializeDeck()
+  initializeDeck();
 
   /**
    * A function to initialize the deck (numbers, suits, and Jokers)
    */
   function initializeDeck(){
 
-    const tempDeck = {}
+    const tempDeck = {};
 
     for(let i = 0; i < suits.length;i++){
       tempDeck[suits[i]] = cardValues;
     }
-    console.log(tempDeck)
+    console.log(tempDeck);
   }
 
 
@@ -44,12 +45,8 @@ function GameBoard() {
       </div>
         <Canvas className="bg-green-900 col-span-4" orthographic camera = {{ position: cameraPosition.current, fov: 53, aspect: width / height, near: 1, far: 5000 }}>
           <ambientLight />
-          <pointLight position={[10, 10, 10]} />
-          <mesh>
-            <planeGeometry args={[50, 70]} />
-            <meshStandardMaterial side={THREE.DoubleSide} color={'lightblue'} />
-          </mesh>
-          <OrbitControls />
+          <Card/>
+          {/* <OrbitControls /> */}
         </Canvas>
       <div className="bg-yellow-400">
         <img src={player2Image} alt="Player 2" className="w-full h-auto" />
