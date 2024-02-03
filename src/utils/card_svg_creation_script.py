@@ -8,7 +8,7 @@ def create_svg_card(card_name):
     dwg.save()
 
 # Define ranks and suits
-ranks = ['A', 'K', 'Q', 'J'] + [str(i) for i in range(10, 2, -1)]
+ranks = ['A', 'K', 'Q', 'J'] + [str(i) for i in range(10, 1, -1)]
 suits = ['Spades', 'Hearts', 'Diamonds', 'Clubs']
 
 # Create SVG files for each card
