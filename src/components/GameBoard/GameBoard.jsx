@@ -6,7 +6,7 @@ import Card from '../Card/Card';
 import arrayShuffle from 'array-shuffle';
 
 
-function GameBoard() {
+function GameBoard({playerOneName, playerTwoName}) {
 
   const [deck, setDeck] = useState(cardImages);
   const [activeCardOne, setActiveCardOne] = useState(null);
@@ -62,7 +62,7 @@ function GameBoard() {
     <div className="grid grid-cols-6 gap-4 items-center mx-auto h-full mb-10 flex-1 w-11/12 mt-autofont-bold ">
       <div className="bg-boardBackground rounded-lg">
         <img src={player1Image} alt="Player 1" className="w-full h-auto" />
-        <p>Player 1</p>
+        <p>{playerOneName}</p>
         <p>Score:</p>
         <button className="bg-green-600 text-white py-2 px-4 rounded">
           It's your turn
@@ -77,7 +77,7 @@ function GameBoard() {
         </div>
       <div className="bg-boardBackground rounded-lg">
         <img src={player2Image} alt="Player 2" className="w-full h-auto" />
-        <p>Player 2</p>
+        <p>{playerTwoName}</p>
         <p>Score:</p>
         <button className="bg-red-600 text-white py-2 px-4 rounded">
           It's your turn
