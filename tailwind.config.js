@@ -13,7 +13,8 @@ module.exports = {
         'memory': '40.19px',
       },
       backgroundImage: {
-        'background': "url('/src/assets/background.svg')",
+        'background': "url('/src/assets/images/background.svg')",
+        'boardBackground': "url('/src/assets/images/boardBackground.svg')",
       }
     },
   },

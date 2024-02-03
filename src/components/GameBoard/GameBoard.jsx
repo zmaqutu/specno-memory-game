@@ -4,7 +4,6 @@ import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 import player1Image from '../../assets/images/player1.svg';
 import player2Image from '../../assets/images/player2.svg';
-import cardBack from '../../assets/images/cardBack.svg';
 import Card from '../Card/Card';
 
 function GameBoard() {
@@ -40,8 +39,8 @@ function GameBoard() {
 
 
   return (
-    <div className="grid grid-cols-6 gap-4 items-center mx-auto h-full mb-10 flex-1 w-11/12  mt-auto  bg-green-500 font-bold">
-      <div className="bg-red-400">
+    <div className="grid grid-cols-6 gap-4 items-center mx-auto h-full mb-10 flex-1 w-11/12 mt-autofont-bold ">
+      <div className="bg-boardBackground rounded-lg">
         <img src={player1Image} alt="Player 1" className="w-full h-auto" />
         <p>Player 1</p>
         <p>Score:</p>
@@ -50,14 +49,12 @@ function GameBoard() {
         </button>
       </div>
       {/* Canvas */}
-        <div className="bg-green-900 col-span-4 grid grid-cols-9 gap-1 place-items-center">
+        <div className="bg-boardBackground col-span-4 grid grid-cols-9 gap-1 place-items-center rounded-lg">
         {cards.map((card) => (
-          <div key={card} className=" p-1 w-4/6">
-            <img src={cardBack} alt=""  />
-          </div>
+          <Card key={card} card={card} />
         ))}
         </div>
-      <div className="bg-yellow-400">
+      <div className="bg-boardBackground rounded-lg">
         <img src={player2Image} alt="Player 2" className="w-full h-auto" />
         <p>Player 2</p>
         <p>Score:</p>
