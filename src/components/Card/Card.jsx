@@ -30,6 +30,9 @@ function Card({ card, selectedCard, isActive, isMatched }) {
         }, 1250);
     }, [isActive, isMatched]);
 
+	// if(isMatched){
+
+
     return !isMatched ? (
         <div className="p-1 w-4/6 flex" onClick={handleSelectedCard}>
             <a.img

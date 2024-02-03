@@ -11,6 +11,8 @@ function App() {
     const [gameStarted, setGameStarted] = useState(false);
     const [playerOneName, setPlayerOneName] = useState("");
     const [playerTwoName, setPlayerTwoName] = useState("");
+	const [restartGame, setRestartGame] = useState(false);
+	// const [exitGame, setExitGame] = useState(false);
 
     const { transform, opacity } = useSpring({
         opacity: gameStarted ? 1 : 0,
@@ -29,12 +31,14 @@ function App() {
 
     function exitGame() {
         setGameStarted(false);
+		setPlayerOneName("");
+        setPlayerTwoName("");
     }
 
-    function resetGame() {
-        setGameStarted(false);
-        setPlayerOneName("");
-        setPlayerTwoName("");
+    function restartAndShuffle() {
+        // setGameStarted(false);
+		setRestartGame(true);
+        
     }
     return (
         <div className="font-sans h-screen flex flex-col">
@@ -46,7 +50,7 @@ function App() {
                 <div className="justify-self-end">
                     {gameStarted ? (
                         <button
-                            onClick={resetGame}
+                            onClick={restartAndShuffle}
                             className="bg-orange-400 text-white py-2 px-4 rounded justify-self-end"
                         >
                             Restart Game
@@ -64,6 +68,7 @@ function App() {
                 <GameBoard
                     playerOneName={playerOneName}
                     playerTwoName={playerTwoName}
+					restartGame={restartGame}
                 />
             ) : (
                 <PlayerModal

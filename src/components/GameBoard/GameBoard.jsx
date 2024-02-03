@@ -5,7 +5,7 @@ import cardImages from "../../utils/cardImages";
 import Card from "../Card/Card";
 import arrayShuffle from "array-shuffle";
 
-function GameBoard({ playerOneName, playerTwoName }) {
+function GameBoard({ playerOneName, playerTwoName, restartGame}) {
     const [deck, setDeck] = useState(cardImages);
     const [activeCardOne, setActiveCardOne] = useState(null);
     const [activeCardTwo, setActiveCardTwo] = useState(null);
@@ -16,6 +16,19 @@ function GameBoard({ playerOneName, playerTwoName }) {
     useEffect(() => {
         // shuffleDeck();
     }, []);
+
+	useEffect(() => {
+		if(restartGame){
+			console.log('deck before', deck)
+			for (let i = [0]; i < deck.length; i++) {
+				// setTimeout(() => {
+					deck[i].isMatched = false;
+				// }, 300);
+			}
+			console.log('deck after', deck)
+			// shuffleDeck();
+		}
+    }, [restartGame]);
 
     useEffect(() => {
         // Check for card match when activeCardTwo is set
@@ -58,9 +71,7 @@ function GameBoard({ playerOneName, playerTwoName }) {
                 setPlayerTwoScore((score) => score + 2);
             }
         } else {
-            console.log(
-                activeCardOne + " and " + activeCardTwo + " are not a match"
-            );
+            console.log(activeCardOne + " and " + activeCardTwo + " are not a match");
             // Flip the cards back over
         }
         // change the turns after 2 seconds
@@ -82,19 +93,18 @@ function GameBoard({ playerOneName, playerTwoName }) {
             }
         }
     }
-    console.log(activeCardOne, activeCardTwo);
 
     return (
-        <div className="grid grid-cols-6 gap-4 items-center mx-auto h-full mb-10 flex-1 w-11/12 mt-autofont-bold ">
+        <div className="grid grid-cols-6 gap-4 items-center mx-auto h-full mb-10 flex-1 w-11/12 font-bold ">
             <div>
-                <div className="bg-boardBackground rounded-lg">
+                <div className="bg-boardBackground rounded-lg text-xl">
                     <img
                         src={player1Image}
                         alt="Player 1"
                         className="w-full h-auto p-4"
                     />
                     {playerOneName ? <p>{playerOneName}</p> : <p>Player 1</p>}
-                    <h2>Score: {playerOneScore}</h2>
+                    Score: {playerOneScore}
                 </div>
                 {currentPlayer === 1 ? (
                     <button className="bg-green-600 font-bold text-white my-4 rounded">
@@ -122,14 +132,14 @@ function GameBoard({ playerOneName, playerTwoName }) {
                 ))}
             </div>
             <div>
-                <div className="bg-boardBackground rounded-lg">
+                <div className="bg-boardBackground rounded-lg text-xl">
                     <img
                         src={player2Image}
                         alt="Player 2"
                         className="w-full h-auto p-4"
                     />
                     {playerTwoName ? <p>{playerTwoName}</p> : <p>Player 2</p>}
-                    <h2>Score: {playerTwoScore}</h2>
+                    Score: {playerTwoScore}
                 </div>
                 {currentPlayer === 2 ? (
                     <button className="bg-neutral-200 font-bold text-blue-500 my-4 rounded">
