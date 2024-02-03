@@ -1,41 +1,61 @@
-import React, {useRef, useState} from 'react';
-import { Canvas, useThree } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
-import * as THREE from 'three';
+import React, {useEffect, useRef, useState} from 'react';
 import player1Image from '../../assets/images/player1.svg';
 import player2Image from '../../assets/images/player2.svg';
+import cardImages from '../../utils/cardImages';
 import Card from '../Card/Card';
+import arrayShuffle from 'array-shuffle';
+
 
 function GameBoard() {
 
-  const width = window.innerWidth;
-	const height = window.innerHeight;
-  const cameraPosition = useRef([0,0,100]);
-  const cardWidth = 50;
-  const cardHeight = 70;
-  const numCards = 9;
+  const [deck, setDeck] = useState(cardImages);
+  const [activeCardOne, setActiveCardOne] = useState(null);
+  const [activeCardTwo, setActiveCardTwo] = useState(null);
 
-  const [deck, setDeck] = useState({})
-
- 
   // a list of possible values for each suit
   const cardValues = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
   const suits = ['Hearts','Clubs','Spades','Diamonds'];
 
-  /**
-   * A function to initialize the deck (numbers, suits, and Jokers)
-   */
-  function initializeDeck(){
+  useEffect(() => {
+    // shuffleDeck();
+  }, []);
 
-    const tempDeck = {};
-
-    for(let i = 0; i < suits.length;i++){
-      tempDeck[suits[i]] = cardValues;
+  useEffect(() => {
+    // Check for card match when activeCardTwo is set
+    if (activeCardTwo) {
+      checkForMatch();
     }
-    console.log(tempDeck);
+  }, [activeCardTwo]);
+
+  /**
+   * A function to shuffle the deck (numbers, suits, and Jokers)
+   */
+  function shuffleDeck(){
+    const shuffledDeck = arrayShuffle(deck);
+    setDeck(shuffledDeck);
   }
 
-  const cards = Array.from({ length: 54 }, (_, index) => index + 1);
+  function selectedCard(card){
+    activeCardOne ? setActiveCardTwo(card) : setActiveCardOne(card);
+
+  }
+
+  function checkForMatch(){
+    if(activeCardOne.split('_')[0] === activeCardTwo.split('_')[0] && activeCardOne !== activeCardTwo){
+      console.log('Match!');
+      for(const card of deck){
+        if(card.name === activeCardOne || card.name === activeCardTwo){
+          card.isMatched = true;
+        }
+      }
+    } else {
+      console.log(activeCardOne + ' and ' + activeCardTwo + ' are not a match');
+      // Flip the cards back over
+    }
+    setActiveCardOne(null);
+    setActiveCardTwo(null);
+  }
+  console.log(activeCardOne, activeCardTwo);
 
 
   return (
@@ -50,8 +70,9 @@ function GameBoard() {
       </div>
       {/* Canvas */}
         <div className="bg-boardBackground col-span-4 grid grid-cols-9 gap-1 place-items-center rounded-lg">
-        {cards.map((card) => (
-          <Card key={card} card={card} />
+        {deck.map((cardImage, cardIndex) => (
+          // console.log(cardImage.name === activeCardOne || cardImage.name === activeCardTwo)
+          <Card key={cardIndex} card={cardImage} selectedCard={selectedCard} isActive={cardImage.name === activeCardOne || cardImage.name === activeCardTwo} isMatched={cardImage.isMatched} />
         ))}
         </div>
       <div className="bg-boardBackground rounded-lg">
@@ -66,4 +87,4 @@ function GameBoard() {
   )
 }
 
-export default GameBoard
+export default GameBoard;
