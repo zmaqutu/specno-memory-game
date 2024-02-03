@@ -1,8 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Vector3 } from 'three';
-import * as THREE from 'three';
 import cardBack from '../../assets/images/cardBack.svg';
-import Joker_2 from '../../assets/images/cards/Joker_2.svg';
 import { useSpring, a } from '@react-spring/web'
 
 

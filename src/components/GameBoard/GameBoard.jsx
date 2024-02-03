@@ -1,43 +1,31 @@
-import React, {useRef, useState} from 'react';
-import { Canvas, useThree } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
-import * as THREE from 'three';
+import React, {useEffect, useRef, useState} from 'react';
 import player1Image from '../../assets/images/player1.svg';
 import player2Image from '../../assets/images/player2.svg';
 import cardImages from '../../utils/cardImages';
 import Card from '../Card/Card';
+import arrayShuffle from 'array-shuffle';
+
 
 function GameBoard() {
 
-  const width = window.innerWidth;
-	const height = window.innerHeight;
-  const cameraPosition = useRef([0,0,100]);
-  const cardWidth = 50;
-  const cardHeight = 70;
-  const numCards = 9;
+  const [deck, setDeck] = useState(cardImages);
 
-  const [deck, setDeck] = useState({})
-
- 
   // a list of possible values for each suit
   const cardValues = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
   const suits = ['Hearts','Clubs','Spades','Diamonds'];
 
-  /**
-   * A function to initialize the deck (numbers, suits, and Jokers)
-   */
-  function initializeDeck(){
-
-    const tempDeck = {};
-
-    for(let i = 0; i < suits.length;i++){
-      tempDeck[suits[i]] = cardValues;
-    }
-    console.log(tempDeck);
+  useEffect(() => {
+    shuffleDeck();
   }
+  , []);
 
-  const cards = Array.from({ length: 54 }, (_, index) => index + 1);
-
+  /**
+   * A function to shuffle the deck (numbers, suits, and Jokers)
+   */
+  function shuffleDeck(){
+    const shuffledDeck = arrayShuffle(deck);
+    setDeck(shuffledDeck);
+  }
 
   return (
     <div className="grid grid-cols-6 gap-4 items-center mx-auto h-full mb-10 flex-1 w-11/12 mt-autofont-bold ">
@@ -51,7 +39,7 @@ function GameBoard() {
       </div>
       {/* Canvas */}
         <div className="bg-boardBackground col-span-4 grid grid-cols-9 gap-1 place-items-center rounded-lg">
-        {cardImages.map((cardImage, cardIndex) => (
+        {deck.map((cardImage, cardIndex) => (
           <Card key={cardIndex} card={cardImage} />
         ))}
         </div>
