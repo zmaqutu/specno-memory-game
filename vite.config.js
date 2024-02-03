@@ -4,7 +4,7 @@ import tailwindcss from 'tailwindcss'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/spacno-memory-game/",
+  base: "/specno-memory-game/",
   plugins: [react()],
   css: {
     postcss: {
