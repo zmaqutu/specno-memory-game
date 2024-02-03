@@ -15,6 +15,7 @@ module.exports = {
       backgroundImage: {
         'background': "url('/src/assets/images/background.svg')",
         'boardBackground': "url('/src/assets/images/boardBackground.svg')",
+        'cardBack': "url('/src/assets/images/cardBack.svg')",
         'tempCard': "url('/src/assets/images/cards/joker_1.svg')",
       }
     },
