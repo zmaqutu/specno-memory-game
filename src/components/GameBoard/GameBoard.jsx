@@ -91,18 +91,18 @@ function GameBoard({ playerOneName, playerTwoName }) {
                     <img
                         src={player1Image}
                         alt="Player 1"
-                        className="w-full h-auto"
+                        className="w-full h-auto p-4"
                     />
                     {playerOneName ? <p>{playerOneName}</p> : <p>Player 1</p>}
                     <h2>Score: {playerOneScore}</h2>
                 </div>
                 {currentPlayer === 1 ? (
                     <button className="bg-green-600 font-bold text-white my-4 rounded">
-                        Its your turn
+                        It's Your Turn
                     </button>
                 ) : (
                     <button className="font-bold text-blue-500 my-4 rounded invisible">
-                        Its your turn
+                        It's Your Turn
                     </button>
                 )}
             </div>
@@ -126,18 +126,18 @@ function GameBoard({ playerOneName, playerTwoName }) {
                     <img
                         src={player2Image}
                         alt="Player 2"
-                        className="w-full h-auto"
+                        className="w-full h-auto p-4"
                     />
                     {playerTwoName ? <p>{playerTwoName}</p> : <p>Player 2</p>}
                     <h2>Score: {playerTwoScore}</h2>
                 </div>
                 {currentPlayer === 2 ? (
                     <button className="bg-neutral-200 font-bold text-blue-500 my-4 rounded">
-                        Its your turn
+                        It's Your Turn
                     </button>
                 ) : (
                     <button className="font-bold text-blue-500 my-4 rounded invisible">
-                        Its your turn
+                        It's Your Turn
                     </button>
                 )}
             </div>

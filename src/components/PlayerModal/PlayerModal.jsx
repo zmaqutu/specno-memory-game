@@ -26,7 +26,7 @@ function PlayerModal({ toggleGameState, setPlayerNames }) {
                         <img
                             src={player1Image}
                             alt="Player 1"
-                            className="w-full h-auto"
+                            className="w-full h-auto p-4"
                         />
                         <input
                             type="text"
@@ -40,7 +40,7 @@ function PlayerModal({ toggleGameState, setPlayerNames }) {
                         <img
                             src={player2Image}
                             alt="Player 2"
-                            className="w-full h-auto"
+                            className="w-full h-auto p-4"
                         />
                         <input
                             type="text"
