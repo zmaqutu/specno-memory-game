@@ -9,15 +9,23 @@ import arrayShuffle from 'array-shuffle';
 function GameBoard() {
 
   const [deck, setDeck] = useState(cardImages);
+  const [activeCardOne, setActiveCardOne] = useState(null);
+  const [activeCardTwo, setActiveCardTwo] = useState(null);
 
   // a list of possible values for each suit
   const cardValues = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
   const suits = ['Hearts','Clubs','Spades','Diamonds'];
 
   useEffect(() => {
-    shuffleDeck();
-  }
-  , []);
+    // shuffleDeck();
+  }, []);
+
+  useEffect(() => {
+    // Check for card match when activeCardTwo is set
+    if (activeCardTwo) {
+      checkForMatch();
+    }
+  }, [activeCardTwo]);
 
   /**
    * A function to shuffle the deck (numbers, suits, and Jokers)
@@ -26,6 +34,29 @@ function GameBoard() {
     const shuffledDeck = arrayShuffle(deck);
     setDeck(shuffledDeck);
   }
+
+  function selectedCard(card){
+    activeCardOne ? setActiveCardTwo(card) : setActiveCardOne(card);
+
+  }
+
+  function checkForMatch(){
+    if(activeCardOne.split('_')[0] === activeCardTwo.split('_')[0] && activeCardOne !== activeCardTwo){
+      console.log('Match!');
+      for(const card of deck){
+        if(card.name === activeCardOne || card.name === activeCardTwo){
+          card.isMatched = true;
+        }
+      }
+    } else {
+      console.log(activeCardOne + ' and ' + activeCardTwo + ' are not a match');
+      // Flip the cards back over
+    }
+    setActiveCardOne(null);
+    setActiveCardTwo(null);
+  }
+  console.log(activeCardOne, activeCardTwo);
+
 
   return (
     <div className="grid grid-cols-6 gap-4 items-center mx-auto h-full mb-10 flex-1 w-11/12 mt-autofont-bold ">
@@ -40,7 +71,8 @@ function GameBoard() {
       {/* Canvas */}
         <div className="bg-boardBackground col-span-4 grid grid-cols-9 gap-1 place-items-center rounded-lg">
         {deck.map((cardImage, cardIndex) => (
-          <Card key={cardIndex} card={cardImage} />
+          // console.log(cardImage.name === activeCardOne || cardImage.name === activeCardTwo)
+          <Card key={cardIndex} card={cardImage} selectedCard={selectedCard} isActive={cardImage.name === activeCardOne || cardImage.name === activeCardTwo} isMatched={cardImage.isMatched} />
         ))}
         </div>
       <div className="bg-boardBackground rounded-lg">
@@ -55,34 +87,4 @@ function GameBoard() {
   )
 }
 
-export default GameBoard
-
-/*import React, { useState } from 'react'
-import { useSpring, a } from '@react-spring/web'
-
-import styles from './styles.module.css'
-
-export default function App() {
-  const [flipped, set] = useState(false)
-  const { transform, opacity } = useSpring({
-    opacity: flipped ? 1 : 0,
-    transform: `perspective(600px) rotateX(${flipped ? 180 : 0}deg)`,
-    config: { mass: 5, tension: 500, friction: 80 },
-  })
-  return (
-    <div className={styles.container} onClick={() => set(state => !state)}>
-      <a.div
-        className={`${styles.c} ${styles.back}`}
-        style={{ opacity: opacity.to(o => 1 - o), transform }}
-      />
-      <a.div
-        className={`${styles.c} ${styles.front}`}
-        style={{
-          opacity,
-          transform,
-          rotateX: '180deg',
-        }}
-      />
-    </div>
-  )
-}*/
+export default GameBoard;
