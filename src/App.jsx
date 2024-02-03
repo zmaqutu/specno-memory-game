@@ -33,11 +33,12 @@ function App() {
 	}
 	return (
         <div className="font-sans h-screen flex flex-col">
-            <nav className="flex justify-between items-center bg-dark p-4">
-                <h1 className="text-white font-bold text-memory flex items-center">
+            <nav className="grid grid-cols-3 items-center bg-opacity-50 place-items-center p-4">
+                <div></div>
+				<h1 className="text-white font-bold text-memory  place-items-center">
                     Memory
                 </h1>
-                <button onClick={exitGame}className="bg-red-600 text-white py-2 px-4 rounded">
+                <button onClick={exitGame}className="bg-red-600 text-white py-2 px-4 rounded justify-self-end">
                     Exit Game
                 </button>
             </nav>

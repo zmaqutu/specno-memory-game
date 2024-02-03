@@ -10,8 +10,8 @@ function GameBoard({ playerOneName, playerTwoName }) {
     const [activeCardOne, setActiveCardOne] = useState(null);
     const [activeCardTwo, setActiveCardTwo] = useState(null);
     const [currentPlayer, setCurrentPlayer] = useState(1); // 1 or 2
-	const [playerOneScore, setPlayerOneScore ] = useState(0);
-	const [playerTwoScore, setPlayerTwoScore ] = useState(0);
+    const [playerOneScore, setPlayerOneScore] = useState(0);
+    const [playerTwoScore, setPlayerTwoScore] = useState(0);
 
     useEffect(() => {
         // shuffleDeck();
@@ -52,36 +52,35 @@ function GameBoard({ playerOneName, playerTwoName }) {
             }
             if (currentPlayer === 1) {
                 // Update player 1 score
-				setPlayerOneScore((score) => score + 2);
+                setPlayerOneScore((score) => score + 2);
             } else {
                 // Update player 2 score
-				setPlayerTwoScore((score) => score + 2);
+                setPlayerTwoScore((score) => score + 2);
             }
-            
         } else {
             console.log(
                 activeCardOne + " and " + activeCardTwo + " are not a match"
             );
             // Flip the cards back over
         }
-		// change the turns after 2 seconds
-		setTimeout(() => {
-			setCurrentPlayer(currentPlayer === 1 ? 2 : 1);
-			// resetActiveCards();
-		}, 1500);
+        // change the turns after 2 seconds
+        setTimeout(() => {
+            setCurrentPlayer(currentPlayer === 1 ? 2 : 1);
+            // resetActiveCards();
+        }, 1500);
 
         setActiveCardOne(null);
         setActiveCardTwo(null);
 
-		if(playerOneScore + playerTwoScore === 54){
-			// Game over- print the winner
-			console.log('Game Over');
-			if(playerOneScore > playerTwoScore){
-				console.log(`${playerOneName} wins!`);
-			}else if(playerOneScore < playerTwoScore){
-				console.log(`${playerTwoName} wins!`);
-			}
-		}
+        if (playerOneScore + playerTwoScore === 54) {
+            // Game over- print the winner
+            console.log("Game Over");
+            if (playerOneScore > playerTwoScore) {
+                console.log(`${playerOneName} wins!`);
+            } else if (playerOneScore < playerTwoScore) {
+                console.log(`${playerTwoName} wins!`);
+            }
+        }
     }
     console.log(activeCardOne, activeCardTwo);
 
@@ -101,9 +100,11 @@ function GameBoard({ playerOneName, playerTwoName }) {
                     <button className="bg-green-600 font-bold text-white my-4 rounded">
                         Its your turn
                     </button>
-                ) :  <button className="font-bold text-blue-500 my-4 rounded invisible">
-						Its your turn
-					</button>}
+                ) : (
+                    <button className="font-bold text-blue-500 my-4 rounded invisible">
+                        Its your turn
+                    </button>
+                )}
             </div>
             <div className="bg-boardBackground col-span-4 grid grid-cols-9 gap-1 place-items-center rounded-lg">
                 {deck.map((cardImage, cardIndex) => (
@@ -134,9 +135,11 @@ function GameBoard({ playerOneName, playerTwoName }) {
                     <button className="bg-neutral-200 font-bold text-blue-500 my-4 rounded">
                         Its your turn
                     </button>
-                ) : <button className="font-bold text-blue-500 my-4 rounded invisible">
-						Its your turn
-					</button>}
+                ) : (
+                    <button className="font-bold text-blue-500 my-4 rounded invisible">
+                        Its your turn
+                    </button>
+                )}
             </div>
         </div>
     );
