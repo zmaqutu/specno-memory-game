@@ -1,0 +1,116 @@
+// import all the card images from assets/images/cards
+// and export them as an array
+import A_Spades from '../assets/images/cards/A_Spades.svg';
+import A_Hearts from '../assets/images/cards/A_Hearts.svg';
+import A_Diamonds from '../assets/images/cards/A_Diamonds.svg';
+import A_Clubs from '../assets/images/cards/A_Clubs.svg';
+import K_Spades from '../assets/images/cards/K_Spades.svg';
+import K_Hearts from '../assets/images/cards/K_Hearts.svg';
+import K_Diamonds from '../assets/images/cards/K_Diamonds.svg';
+import K_Clubs from '../assets/images/cards/K_Clubs.svg';
+import Q_Spades from '../assets/images/cards/Q_Spades.svg';
+import Q_Hearts from '../assets/images/cards/Q_Hearts.svg';
+import Q_Diamonds from '../assets/images/cards/Q_Diamonds.svg';
+import Q_Clubs from '../assets/images/cards/Q_Clubs.svg';
+import J_Spades from '../assets/images/cards/J_Spades.svg';
+import J_Hearts from '../assets/images/cards/J_Hearts.svg';
+import J_Diamonds from '../assets/images/cards/J_Diamonds.svg';
+import J_Clubs from '../assets/images/cards/J_Clubs.svg';
+import Ten_Spades from '../assets/images/cards/10_Spades.svg';
+import Ten_Hearts from '../assets/images/cards/10_Hearts.svg';
+import Ten_Diamonds from '../assets/images/cards/10_Diamonds.svg';
+import Ten_Clubs from '../assets/images/cards/10_Clubs.svg';
+import Nine_Spades from '../assets/images/cards/9_Spades.svg';
+import Nine_Hearts from '../assets/images/cards/9_Hearts.svg';
+import Nine_Diamonds from '../assets/images/cards/9_Diamonds.svg';
+import Nine_Clubs from '../assets/images/cards/9_Clubs.svg';
+import Eight_Spades from '../assets/images/cards/8_Spades.svg';
+import Eight_Hearts from '../assets/images/cards/8_Hearts.svg';
+import Eight_Diamonds from '../assets/images/cards/8_Diamonds.svg';
+import Eight_Clubs from '../assets/images/cards/8_Clubs.svg';
+import Seven_Spades from '../assets/images/cards/7_Spades.svg';
+import Seven_Hearts from '../assets/images/cards/7_Hearts.svg';
+import Seven_Diamonds from '../assets/images/cards/7_Diamonds.svg';
+import Seven_Clubs from '../assets/images/cards/7_Clubs.svg';
+import Six_Spades from '../assets/images/cards/6_Spades.svg';
+import Six_Hearts from '../assets/images/cards/6_Hearts.svg';
+import Six_Diamonds from '../assets/images/cards/6_Diamonds.svg';
+import Six_Clubs from '../assets/images/cards/6_Clubs.svg';
+import Five_Spades from '../assets/images/cards/5_Spades.svg';
+import Five_Hearts from '../assets/images/cards/5_Hearts.svg';
+import Five_Diamonds from '../assets/images/cards/5_Diamonds.svg';
+import Five_Clubs from '../assets/images/cards/5_Clubs.svg';
+import Four_Spades from '../assets/images/cards/4_Spades.svg';
+import Four_Hearts from '../assets/images/cards/4_Hearts.svg';
+import Four_Diamonds from '../assets/images/cards/4_Diamonds.svg';
+import Four_Clubs from '../assets/images/cards/4_Clubs.svg';
+import Three_Spades from '../assets/images/cards/3_Spades.svg';
+import Three_Hearts from '../assets/images/cards/3_Hearts.svg';
+import Three_Diamonds from '../assets/images/cards/3_Diamonds.svg';
+import Three_Clubs from '../assets/images/cards/3_Clubs.svg';
+import Two_Spades from '../assets/images/cards/2_Spades.svg';
+import Two_Hearts from '../assets/images/cards/2_Hearts.svg';
+import Two_Diamonds from '../assets/images/cards/2_Diamonds.svg';
+import Two_Clubs from '../assets/images/cards/2_Clubs.svg';
+import Joker_1 from '../assets/images/cards/Joker.svg';
+import Joker_2 from '../assets/images/cards/Joker.svg';
+
+const cardImages = [
+    {name: 'A_Spades', imageSrc: A_Spades},
+    {name: 'A_Hearts', imageSrc: A_Hearts},
+    {name: 'A_Diamonds', imageSrc: A_Diamonds},
+    {name: 'A_Clubs', imageSrc: A_Clubs},
+    {name: 'K_Spades', imageSrc: K_Spades},
+    {name: 'K_Hearts', imageSrc: K_Hearts},
+    {name: 'K_Diamonds', imageSrc: K_Diamonds},
+    {name: 'K_Clubs', imageSrc: K_Clubs},
+    {name: 'Q_Spades', imageSrc: Q_Spades},
+    {name: 'Q_Hearts', imageSrc: Q_Hearts},
+    {name: 'Q_Diamonds', imageSrc: Q_Diamonds},
+    {name: 'Q_Clubs', imageSrc: Q_Clubs},
+    {name: 'J_Spades', imageSrc: J_Spades},
+    {name: 'J_Hearts', imageSrc: J_Hearts},
+    {name: 'J_Diamonds', imageSrc: J_Diamonds},
+    {name: 'J_Clubs', imageSrc: J_Clubs},
+    {name: '10_Spades', imageSrc: Ten_Spades},
+    {name: '10_Hearts', imageSrc: Ten_Hearts},
+    {name: '10_Diamonds', imageSrc: Ten_Diamonds},
+    {name: '10_Clubs', imageSrc: Ten_Clubs},
+    {name: '9_Spades', imageSrc: Nine_Spades},
+    {name: '9_Hearts', imageSrc: Nine_Hearts},
+    {name: '9_Diamonds', imageSrc: Nine_Diamonds},
+    {name: '9_Clubs', imageSrc: Nine_Clubs},
+    {name: '8_Spades', imageSrc: Eight_Spades},
+    {name: '8_Hearts', imageSrc: Eight_Hearts},
+    {name: '8_Diamonds', imageSrc: Eight_Diamonds},
+    {name: '8_Clubs', imageSrc: Eight_Clubs},
+    {name: '7_Spades', imageSrc: Seven_Spades},
+    {name: '7_Hearts', imageSrc: Seven_Hearts},
+    {name: '7_Diamonds', imageSrc: Seven_Diamonds},
+    {name: '7_Clubs', imageSrc: Seven_Clubs},
+    {name: '6_Spades', imageSrc: Six_Spades},
+    {name: '6_Hearts', imageSrc: Six_Hearts},
+    {name: '6_Diamonds', imageSrc: Six_Diamonds},
+    {name: '6_Clubs', imageSrc: Six_Clubs},
+    {name: '5_Spades', imageSrc: Five_Spades},
+    {name: '5_Hearts', imageSrc: Five_Hearts},
+    {name: '5_Diamonds', imageSrc: Five_Diamonds},
+    {name: '5_Clubs', imageSrc: Five_Clubs},
+    {name: '4_Spades', imageSrc: Four_Spades},
+    {name: '4_Hearts', imageSrc: Four_Hearts},
+    {name: '4_Diamonds', imageSrc: Four_Diamonds},
+    {name: '4_Clubs', imageSrc: Four_Clubs},
+    {name: '3_Spades', imageSrc: Three_Spades},
+    {name: '3_Hearts', imageSrc: Three_Hearts},
+    {name: '3_Diamonds', imageSrc: Three_Diamonds},
+    {name: '3_Clubs', imageSrc: Three_Clubs},
+    {name: '2_Spades', imageSrc: Two_Spades},
+    {name: '2_Hearts', imageSrc: Two_Hearts},
+    {name: '2_Diamonds', imageSrc: Two_Diamonds},
+    {name: '2_Clubs', imageSrc: Two_Clubs},
+    {name: 'Joker_1', imageSrc: Joker_1},
+    {name: 'Joker_2', imageSrc: Joker_2},
+];
+
+
+export default cardImages;
