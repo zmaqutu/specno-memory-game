@@ -99,9 +99,11 @@ function GameBoard({ playerOneName, playerTwoName }) {
                 </div>
                 {currentPlayer === 1 ? (
                     <button className="bg-green-600 font-bold text-white my-4 rounded">
-                        It's Your Turn
+                        Its your turn
                     </button>
-                ) : null}
+                ) :  <button className="font-bold text-blue-500 my-4 rounded invisible">
+						Its your turn
+					</button>}
             </div>
             <div className="bg-boardBackground col-span-4 grid grid-cols-9 gap-1 place-items-center rounded-lg">
                 {deck.map((cardImage, cardIndex) => (
@@ -130,9 +132,11 @@ function GameBoard({ playerOneName, playerTwoName }) {
                 </div>
                 {currentPlayer === 2 ? (
                     <button className="bg-neutral-200 font-bold text-blue-500 my-4 rounded">
-                        It's Your Turn
+                        Its your turn
                     </button>
-                ) : null}
+                ) : <button className="font-bold text-blue-500 my-4 rounded invisible">
+						Its your turn
+					</button>}
             </div>
         </div>
     );
