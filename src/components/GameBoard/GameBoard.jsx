@@ -52,19 +52,36 @@ function GameBoard({ playerOneName, playerTwoName }) {
             }
             if (currentPlayer === 1) {
                 // Update player 1 score
+				setPlayerOneScore((score) => score + 2);
             } else {
                 // Update player 2 score
+				setPlayerTwoScore((score) => score + 2);
             }
-            // change the turns
-            setCurrentPlayer(currentPlayer === 1 ? 2 : 1);
+            
         } else {
             console.log(
                 activeCardOne + " and " + activeCardTwo + " are not a match"
             );
             // Flip the cards back over
         }
+		// change the turns after 2 seconds
+		setTimeout(() => {
+			setCurrentPlayer(currentPlayer === 1 ? 2 : 1);
+			// resetActiveCards();
+		}, 1500);
+
         setActiveCardOne(null);
         setActiveCardTwo(null);
+
+		if(playerOneScore + playerTwoScore === 54){
+			// Game over- print the winner
+			console.log('Game Over');
+			if(playerOneScore > playerTwoScore){
+				console.log(`${playerOneName} wins!`);
+			}else if(playerOneScore < playerTwoScore){
+				console.log(`${playerTwoName} wins!`);
+			}
+		}
     }
     console.log(activeCardOne, activeCardTwo);
 
@@ -78,7 +95,7 @@ function GameBoard({ playerOneName, playerTwoName }) {
                         className="w-full h-auto"
                     />
                     {playerOneName ? <p>{playerOneName}</p> : <p>Player 1</p>}
-                    <h2>Score:</h2>
+                    <h2>Score: {playerOneScore}</h2>
                 </div>
                 {currentPlayer === 1 ? (
                     <button className="bg-green-600 font-bold text-white my-4 rounded">
@@ -109,7 +126,7 @@ function GameBoard({ playerOneName, playerTwoName }) {
                         className="w-full h-auto"
                     />
                     {playerTwoName ? <p>{playerTwoName}</p> : <p>Player 2</p>}
-                    <h2>Score:</h2>
+                    <h2>Score: {playerTwoScore}</h2>
                 </div>
                 {currentPlayer === 2 ? (
                     <button className="bg-neutral-200 font-bold text-blue-500 my-4 rounded">
