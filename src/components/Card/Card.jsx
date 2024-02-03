@@ -20,7 +20,7 @@ function Card(props) {
   return (
     <div className="p-1 w-4/6 flex" onClick={() => set(state => !state)}>
       <a.img src={cardBack} className="flex-shrink-0" alt="" style={{ opacity: opacity.to(o => 1 - o), transform }}/>
-      <a.img src={Joker_2} className="flex-shrink-0 ml-[-100%] will-change-[transform,opacity]" alt="" style={{ opacity, transform, rotateX: '180deg'}} />
+      <a.img src={props.card.imageSrc} className="flex-shrink-0 ml-[-100%] will-change-[transform,opacity]" alt="" style={{ opacity, transform, rotateX: '180deg'}} />
     </div>
   )
 }

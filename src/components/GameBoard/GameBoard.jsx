@@ -4,6 +4,7 @@ import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 import player1Image from '../../assets/images/player1.svg';
 import player2Image from '../../assets/images/player2.svg';
+import cardImages from '../../utils/cardImages';
 import Card from '../Card/Card';
 
 function GameBoard() {
@@ -50,8 +51,8 @@ function GameBoard() {
       </div>
       {/* Canvas */}
         <div className="bg-boardBackground col-span-4 grid grid-cols-9 gap-1 place-items-center rounded-lg">
-        {cards.map((card) => (
-          <Card key={card} card={card} />
+        {cardImages.map((cardImage, cardIndex) => (
+          <Card key={cardIndex} card={cardImage} />
         ))}
         </div>
       <div className="bg-boardBackground rounded-lg">

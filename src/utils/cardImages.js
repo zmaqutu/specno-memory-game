@@ -52,8 +52,8 @@ import Two_Spades from '../assets/images/cards/2_Spades.svg';
 import Two_Hearts from '../assets/images/cards/2_Hearts.svg';
 import Two_Diamonds from '../assets/images/cards/2_Diamonds.svg';
 import Two_Clubs from '../assets/images/cards/2_Clubs.svg';
-import Joker_1 from '../assets/images/cards/Joker.svg';
-import Joker_2 from '../assets/images/cards/Joker.svg';
+import Joker_1 from '../assets/images/cards/Joker_1.svg';
+import Joker_2 from '../assets/images/cards/Joker_2.svg';
 
 const cardImages = [
     {name: 'A_Spades', imageSrc: A_Spades},
