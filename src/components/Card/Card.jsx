@@ -30,23 +30,23 @@ function Card({ card, selectedCard, isActive, isMatched }) {
         }, 1250);
     }, [isActive, isMatched]);
 
-    return (
-        !isMatched 
-			? <div className="p-1 w-4/6 flex" onClick={handleSelectedCard}>
-				<a.img
-					src={cardBack}
-					className="flex-shrink-0"
-					alt=""
-					style={{ opacity: opacity.to((o) => 1 - o), transform }}
-				/>
-				<a.img
-					src={card.imageSrc}
-					className="flex-shrink-0 ml-[-100%] will-change-[transform,opacity]"
-					alt=""
-					style={{ opacity, transform, rotateX: "180deg" }}
-				/>
-        	</div>
-			: <div className="p-1 w-4/6 flex"/>
+    return !isMatched ? (
+        <div className="p-1 w-4/6 flex" onClick={handleSelectedCard}>
+            <a.img
+                src={cardBack}
+                className="flex-shrink-0"
+                alt=""
+                style={{ opacity: opacity.to((o) => 1 - o), transform }}
+            />
+            <a.img
+                src={card.imageSrc}
+                className="flex-shrink-0 ml-[-100%] will-change-[transform,opacity]"
+                alt=""
+                style={{ opacity, transform, rotateX: "180deg" }}
+            />
+        </div>
+    ) : (
+        <div className="p-1 w-4/6 flex" />
     );
 }
 
