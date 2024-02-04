@@ -13,6 +13,11 @@ function Card({ card, selectedCard, isActive, isMatched }) {
         config: { mass: 5, tension: 500, friction: 80 },
     });
 
+    const { matchedCardAnimation } = useSpring({
+        matchedCardAnimation: flipped ? 1 : 0,
+        config: { mass: 5, tension: 500, friction: 80, duration: 2000 },
+    });
+
     function handleSelectedCard() {
         if (flipped) return;
         toggleFlipped((state) => !state);
@@ -30,10 +35,7 @@ function Card({ card, selectedCard, isActive, isMatched }) {
         }, 1250);
     }, [isActive, isMatched]);
 
-	// if(isMatched){
-
-
-    return !isMatched ? (
+    return (
         <div className="p-1 w-4/6 flex" onClick={handleSelectedCard}>
             <a.img
                 src={cardBack}
@@ -45,11 +47,13 @@ function Card({ card, selectedCard, isActive, isMatched }) {
                 src={card.imageSrc}
                 className="flex-shrink-0 ml-[-100%] will-change-[transform,opacity]"
                 alt=""
-                style={{ opacity, transform, rotateX: "180deg" }}
+                style={
+                    isMatched
+                        ? { opacity: matchedCardAnimation.to((o) => 0.5 - o) }
+                        : { opacity, transform, rotateX: "180deg" }
+                }
             />
         </div>
-    ) : (
-        <div className="p-1 w-4/6 flex" />
     );
 }
 
