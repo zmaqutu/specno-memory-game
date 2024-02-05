@@ -11,8 +11,7 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
     const [playerOneScore, setPlayerOneScore] = useState(0);
     const [playerTwoScore, setPlayerTwoScore] = useState(0);
 
-    // let deck = ...deck
-
+    const suitColorMapping = {'Hearts': 'red', 'Diamonds': 'red', 'Clubs': 'black', 'Spades': 'black'};
 
     useEffect(() => {
         // shuffleDeck();
@@ -44,19 +43,17 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
     }
 
     function checkForMatch() {
-        if (
-            activeCardOne.split("_")[0] === activeCardTwo.split("_")[0] &&
-            activeCardOne !== activeCardTwo
-        ) {
+        const cardOneRank = activeCardOne.split("_")[0];
+        const cardTwoRank = activeCardTwo.split("_")[0];
+        const cardOneColor = suitColorMapping[activeCardOne.split("_")[1]];
+        const cardTwoColor = suitColorMapping[activeCardTwo.split("_")[1]];
+        console.log('activeCardOne', cardOneColor, cardTwoColor);
+        if ( cardOneRank === cardTwoRank && cardOneColor === cardTwoColor && activeCardOne !== activeCardTwo) {
             console.log("Match!");
             for (const card of deck) {
-                if (
-                    card.name === activeCardOne ||
-                    card.name === activeCardTwo
-                ) {
+                if (card.name === activeCardOne || card.name === activeCardTwo) {
                     card.isMatched = true;
                 }
-                console.log('check if the deck is matched',deck)
             }
             if (currentPlayer === 1) {
                 // Update player 1 score
