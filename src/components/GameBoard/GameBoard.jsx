@@ -62,13 +62,7 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
                 setPlayerTwoScore((score) => score + 2);
             }
             setShowConfetti(true);
-        } else {
         }
-        // change the turns after 1.5 seconds
-        setTimeout(() => {
-            setCurrentPlayer(currentPlayer === 1 ? 2 : 1);
-            // resetActiveCards();
-        }, 1500);
 
         setActiveCardOne(null);
         setActiveCardTwo(null);
@@ -120,7 +114,7 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
                         showConfetti={showConfetti}
                     />
                 ))}
-                <MatchConfetti showConfetti={showConfetti} setShowConfetti={setShowConfetti}/>
+                <MatchConfetti showConfetti={showConfetti} currentPlayer={currentPlayer} setCurrentPlayer={setCurrentPlayer} setShowConfetti={setShowConfetti}/>
             </div>
             <div>
                 <div className="bg-boardBackground rounded-lg text-xl">

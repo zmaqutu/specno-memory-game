@@ -3,7 +3,7 @@ import matchConfetti from "../../assets/images/matchConfetti.svg";
 import Confetti from "react-confetti";
 import { useSpring, a } from "@react-spring/web";
 
-function MatchConfetti({ showConfetti, setShowConfetti }) {
+function MatchConfetti({ showConfetti, setShowConfetti, currentPlayer, setCurrentPlayer}) {
     const { confettiAnimation } = useSpring({
         confettiAnimation: showConfetti ? 1 : 0,
         config: { mass: 5, tension: 500, friction: 80, duration: 2000 },
@@ -14,6 +14,7 @@ function MatchConfetti({ showConfetti, setShowConfetti }) {
         onRest: () => {
             if (!showConfetti) {
                 setShowConfetti(false);
+                setCurrentPlayer(currentPlayer === 1 ? 2 : 1);
             }
         },
     });
