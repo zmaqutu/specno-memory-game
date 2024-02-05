@@ -17,6 +17,7 @@ module.exports = {
         'boardBackground': "url('/src/assets/images/boardBackground.svg')",
         'cardBack': "url('/src/assets/images/cardBack.svg')",
         'tempCard': "url('/src/assets/images/cards/joker_1.svg')",
+        'matchConfetti': "url('/src/assets/images/matchConfetti.svg')",
       }
     },
   },

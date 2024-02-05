@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import cardBack from "../../assets/images/cardBack.svg";
 import { useSpring, a } from "@react-spring/web";
 
-function Card({ card, selectedCard, isActive, isMatched }) {
+function Card({ card, selectedCard, isActive, isMatched, showConfetti }) {
     const [flipped, toggleFlipped] = useState(false);
 
     const cardRank = card.name;
@@ -36,7 +36,7 @@ function Card({ card, selectedCard, isActive, isMatched }) {
     }, [isActive, isMatched]);
 
     return (
-        <div className="p-1 w-4/6 flex" onClick={handleSelectedCard}>
+        <div className={`${ showConfetti ? 'invisible' : 'visible'} p-1 w-4/6 flex`} onClick={handleSelectedCard}>
             <a.img
                 src={cardBack}
                 className="flex-shrink-0 will-change-[transform,opacity]"

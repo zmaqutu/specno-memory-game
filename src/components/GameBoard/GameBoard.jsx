@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import player1Image from "../../assets/images/player1.svg";
 import player2Image from "../../assets/images/player2.svg";
-import cardImages from "../../utils/cardImages";
 import Card from "../Card/Card";
-
+import MatchConfetti from "./MatchConfetti";
 function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDeck}) {
     const [activeCardOne, setActiveCardOne] = useState(null);
     const [activeCardTwo, setActiveCardTwo] = useState(null);
     const [currentPlayer, setCurrentPlayer] = useState(1); // 1 or 2
     const [playerOneScore, setPlayerOneScore] = useState(0);
     const [playerTwoScore, setPlayerTwoScore] = useState(0);
+    const [showConfetti, setShowConfetti] = useState(false);
 
     const suitColorMapping = {'Hearts': 'red', 'Diamonds': 'red', 'Clubs': 'black', 'Spades': 'black'};
 
@@ -62,6 +62,7 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
                 // Update player 2 score
                 setPlayerTwoScore((score) => score + 2);
             }
+            setShowConfetti(true);
         } else {
             console.log(activeCardOne + " and " + activeCardTwo + " are not a match");
         }
@@ -107,7 +108,7 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
                     </button>
                 )}
             </div>
-            <div className="bg-boardBackground col-span-4 grid grid-cols-9 gap-1 place-items-center rounded-lg">
+            <div className="relative bg-boardBackground col-span-4 grid grid-cols-9 gap-1 place-items-center rounded-lg">
                 {deck.map((cardImage, cardIndex) => (
                     // console.log(cardImage.name === activeCardOne || cardImage.name === activeCardTwo)
                     <Card
@@ -119,8 +120,10 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
                             cardImage.name === activeCardTwo
                         }
                         isMatched={cardImage.isMatched}
+                        showConfetti={showConfetti}
                     />
                 ))}
+                <MatchConfetti showConfetti={showConfetti} setShowConfetti={setShowConfetti}/>
             </div>
             <div>
                 <div className="bg-boardBackground rounded-lg text-xl">
@@ -147,3 +150,6 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
 }
 
 export default GameBoard;
+
+
+

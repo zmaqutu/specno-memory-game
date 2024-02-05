@@ -10,7 +10,7 @@ function PlayerModal({ toggleGameState, setPlayerNames, shuffleDeck }) {
         console.log("Start Game", playerOneName, playerTwoName);
         setPlayerNames(playerOneName, playerTwoName);
         toggleGameState();
-        shuffleDeck();
+        // shuffleDeck();
     }
     return (
         <div className="grid grid-cols-4 items-center bg-opacity-50 place-items-center">
