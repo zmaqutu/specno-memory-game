@@ -5,6 +5,8 @@ import "./App.css";
 import PlayerModal from "./components/PlayerModal/PlayerModal";
 import GameBoard from "./components/GameBoard/GameBoard";
 import { useSpring, a } from "@react-spring/web";
+import cardImages from "./utils/cardImages";
+
 
 function App() {
     const [count, setCount] = useState(0);
@@ -13,6 +15,10 @@ function App() {
     const [playerTwoName, setPlayerTwoName] = useState("");
 	const [restartGame, setRestartGame] = useState(false);
 	// const [exitGame, setExitGame] = useState(false);
+
+    // let deck = cardImages;
+    const [deck, setDeck] = useState(cardImages);
+
 
     const { transform, opacity } = useSpring({
         opacity: gameStarted ? 1 : 0,
@@ -33,6 +39,7 @@ function App() {
         setGameStarted(false);
 		setPlayerOneName("");
         setPlayerTwoName("");
+        // setDeck(cardImages);
     }
 
     function restartAndShuffle() {
@@ -66,6 +73,7 @@ function App() {
             </nav>
             {gameStarted ? (
                 <GameBoard
+                    deck={deck}
                     playerOneName={playerOneName}
                     playerTwoName={playerTwoName}
 					restartGame={restartGame}

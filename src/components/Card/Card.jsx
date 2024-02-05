@@ -30,7 +30,7 @@ function Card({ card, selectedCard, isActive, isMatched }) {
                 toggleFlipped((state) => false);
             } else if (isMatched) {
                 console.log("Matched cad!");
-                // toggleFlipped(state => true);
+                // toggleFlipped(state => false);
             }
         }, 1250);
     }, [isActive, isMatched]);
@@ -39,7 +39,7 @@ function Card({ card, selectedCard, isActive, isMatched }) {
         <div className="p-1 w-4/6 flex" onClick={handleSelectedCard}>
             <a.img
                 src={cardBack}
-                className="flex-shrink-0"
+                className="flex-shrink-0 will-change-[transform,opacity]"
                 alt=""
                 style={{ opacity: opacity.to((o) => 1 - o), transform }}
             />
@@ -49,7 +49,7 @@ function Card({ card, selectedCard, isActive, isMatched }) {
                 alt=""
                 style={
                     isMatched
-                        ? { opacity: matchedCardAnimation.to((o) => 0.5 - o) }
+                        ? { opacity: matchedCardAnimation.to((o) => 1 - o)}
                         : { opacity, transform, rotateX: "180deg" }
                 }
             />

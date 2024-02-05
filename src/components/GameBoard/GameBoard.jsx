@@ -5,16 +5,24 @@ import cardImages from "../../utils/cardImages";
 import Card from "../Card/Card";
 import arrayShuffle from "array-shuffle";
 
-function GameBoard({ playerOneName, playerTwoName, restartGame}) {
-    const [deck, setDeck] = useState(cardImages);
+function GameBoard({ playerOneName, playerTwoName, restartGame, deck}) {
     const [activeCardOne, setActiveCardOne] = useState(null);
     const [activeCardTwo, setActiveCardTwo] = useState(null);
     const [currentPlayer, setCurrentPlayer] = useState(1); // 1 or 2
     const [playerOneScore, setPlayerOneScore] = useState(0);
     const [playerTwoScore, setPlayerTwoScore] = useState(0);
 
+    // let deck = ...deck
+
+
     useEffect(() => {
         // shuffleDeck();
+        // set all cards in the deck to face down and not matched on unmount
+        return () => {
+            for (let i = [0]; i < deck.length; i++) {
+                deck[i].isMatched = false;
+            }
+        };
     }, []);
 
 	useEffect(() => {
@@ -42,7 +50,7 @@ function GameBoard({ playerOneName, playerTwoName, restartGame}) {
      */
     function shuffleDeck() {
         const shuffledDeck = arrayShuffle(deck);
-        setDeck(shuffledDeck);
+        // setDeck(shuffledDeck);
     }
 
     function selectedCard(card) {
@@ -62,6 +70,7 @@ function GameBoard({ playerOneName, playerTwoName, restartGame}) {
                 ) {
                     card.isMatched = true;
                 }
+                console.log('check if the deck is matched',deck)
             }
             if (currentPlayer === 1) {
                 // Update player 1 score
@@ -72,9 +81,8 @@ function GameBoard({ playerOneName, playerTwoName, restartGame}) {
             }
         } else {
             console.log(activeCardOne + " and " + activeCardTwo + " are not a match");
-            // Flip the cards back over
         }
-        // change the turns after 2 seconds
+        // change the turns after 1.5 seconds
         setTimeout(() => {
             setCurrentPlayer(currentPlayer === 1 ? 2 : 1);
             // resetActiveCards();
