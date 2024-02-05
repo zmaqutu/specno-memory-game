@@ -3,7 +3,6 @@ import player1Image from "../../assets/images/player1.svg";
 import player2Image from "../../assets/images/player2.svg";
 import cardImages from "../../utils/cardImages";
 import Card from "../Card/Card";
-import arrayShuffle from "array-shuffle";
 
 function GameBoard({ playerOneName, playerTwoName, restartGame, deck}) {
     const [activeCardOne, setActiveCardOne] = useState(null);
@@ -27,14 +26,9 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck}) {
 
 	useEffect(() => {
 		if(restartGame){
-			console.log('deck before', deck)
-			for (let i = [0]; i < deck.length; i++) {
-				// setTimeout(() => {
-					deck[i].isMatched = false;
-				// }, 300);
-			}
-			console.log('deck after', deck)
-			// shuffleDeck();
+			// set both scores to zero
+            setPlayerOneScore(0);
+            setPlayerTwoScore(0);
 		}
     }, [restartGame]);
 
@@ -44,14 +38,6 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck}) {
             checkForMatch();
         }
     }, [activeCardTwo]);
-
-    /**
-     * A function to shuffle the deck (numbers, suits, and Jokers)
-     */
-    function shuffleDeck() {
-        const shuffledDeck = arrayShuffle(deck);
-        // setDeck(shuffledDeck);
-    }
 
     function selectedCard(card) {
         activeCardOne ? setActiveCardTwo(card) : setActiveCardOne(card);

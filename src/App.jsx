@@ -6,19 +6,18 @@ import PlayerModal from "./components/PlayerModal/PlayerModal";
 import GameBoard from "./components/GameBoard/GameBoard";
 import { useSpring, a } from "@react-spring/web";
 import cardImages from "./utils/cardImages";
+import arrayShuffle from "array-shuffle";
+
 
 
 function App() {
-    const [count, setCount] = useState(0);
     const [gameStarted, setGameStarted] = useState(false);
     const [playerOneName, setPlayerOneName] = useState("");
     const [playerTwoName, setPlayerTwoName] = useState("");
 	const [restartGame, setRestartGame] = useState(false);
-	// const [exitGame, setExitGame] = useState(false);
-
-    // let deck = cardImages;
     const [deck, setDeck] = useState(cardImages);
 
+	// const [exitGame, setExitGame] = useState(false);
 
     const { transform, opacity } = useSpring({
         opacity: gameStarted ? 1 : 0,
@@ -39,14 +38,28 @@ function App() {
         setGameStarted(false);
 		setPlayerOneName("");
         setPlayerTwoName("");
-        // setDeck(cardImages);
     }
 
     function restartAndShuffle() {
         // setGameStarted(false);
+        for (let i = [0]; i < deck.length; i++) {
+                deck[i].isMatched = false;
+        }
+        shuffleDeck();
 		setRestartGame(true);
+
         
     }
+
+    /**
+     * A function to shuffle the deck (numbers, suits, and Jokers)
+     */
+    function shuffleDeck() {
+        const shuffledDeck = arrayShuffle(deck);
+        setDeck(shuffledDeck);
+    }
+
+
     return (
         <div className="font-sans h-screen flex flex-col">
             <nav className="grid grid-cols-3 items-center bg-opacity-50 place-items-center p-4">
