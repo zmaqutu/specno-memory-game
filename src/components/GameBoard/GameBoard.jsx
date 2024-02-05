@@ -4,7 +4,7 @@ import player2Image from "../../assets/images/player2.svg";
 import cardImages from "../../utils/cardImages";
 import Card from "../Card/Card";
 
-function GameBoard({ playerOneName, playerTwoName, restartGame, deck}) {
+function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDeck}) {
     const [activeCardOne, setActiveCardOne] = useState(null);
     const [activeCardTwo, setActiveCardTwo] = useState(null);
     const [currentPlayer, setCurrentPlayer] = useState(1); // 1 or 2

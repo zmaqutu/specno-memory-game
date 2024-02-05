@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import player1Image from "../../assets/images/player1.svg";
 import player2Image from "../../assets/images/player2.svg";
 
-function PlayerModal({ toggleGameState, setPlayerNames }) {
+function PlayerModal({ toggleGameState, setPlayerNames, shuffleDeck }) {
     const [playerOneName, setPlayerOneName] = useState("");
     const [playerTwoName, setPlayerTwoName] = useState("");
 
@@ -10,6 +10,7 @@ function PlayerModal({ toggleGameState, setPlayerNames }) {
         console.log("Start Game", playerOneName, playerTwoName);
         setPlayerNames(playerOneName, playerTwoName);
         toggleGameState();
+        shuffleDeck();
     }
     return (
         <div className="grid grid-cols-4 items-center bg-opacity-50 place-items-center">

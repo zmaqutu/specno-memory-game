@@ -90,11 +90,13 @@ function App() {
                     playerOneName={playerOneName}
                     playerTwoName={playerTwoName}
 					restartGame={restartGame}
+                    shuffleDeck={shuffleDeck}
                 />
             ) : (
                 <PlayerModal
                     toggleGameState={toggleGameState}
                     setPlayerNames={setPlayerNames}
+                    shuffleDeck={shuffleDeck}
                 />
             )}
             {/* <a.div className=" flex-shrink-0 z-10" style={{ opacity: opacity.to((o) => 1 - o), transform }}>
