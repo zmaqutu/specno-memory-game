@@ -63,6 +63,11 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
             }
             setShowConfetti(true);
         }
+        // change the turns after 1.5 seconds
+        setTimeout(() => {
+            setCurrentPlayer(currentPlayer === 1 ? 2 : 1);
+            // resetActiveCards();
+        }, 1500);
 
         setActiveCardOne(null);
         setActiveCardTwo(null);
