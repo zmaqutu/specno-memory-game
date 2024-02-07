@@ -11,7 +11,7 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
     const [playerTwoScore, setPlayerTwoScore] = useState(0);
     const [showConfetti, setShowConfetti] = useState(false);
 
-    const suitColorMapping = {'Hearts': 'red', 'Diamonds': 'red', 'Clubs': 'black', 'Spades': 'black'};
+    const suitColorMapping = {'Hearts': 'red', 'Diamonds': 'red', 'Clubs': 'black', 'Spades': 'black', 'Joker': 'joker'};
 
     useEffect(() => {
         // shuffleDeck();
@@ -47,9 +47,8 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
         const cardTwoRank = activeCardTwo.split("_")[0];
         const cardOneColor = suitColorMapping[activeCardOne.split("_")[1]];
         const cardTwoColor = suitColorMapping[activeCardTwo.split("_")[1]];
-        console.log('activeCardOne', cardOneColor, cardTwoColor);
-        if ( cardOneRank === cardTwoRank && cardOneColor === cardTwoColor && activeCardOne !== activeCardTwo) {
-            console.log("Match!");
+
+        if ((cardOneRank === cardTwoRank && cardOneColor === cardTwoColor && activeCardOne !== activeCardTwo) ) {
             for (const card of deck) {
                 if (card.name === activeCardOne || card.name === activeCardTwo) {
                     card.isMatched = true;
@@ -63,8 +62,6 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
                 setPlayerTwoScore((score) => score + 2);
             }
             setShowConfetti(true);
-        } else {
-            console.log(activeCardOne + " and " + activeCardTwo + " are not a match");
         }
         // change the turns after 1.5 seconds
         setTimeout(() => {
@@ -110,7 +107,6 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
             </div>
             <div className="relative bg-boardBackground col-span-4 grid grid-cols-9 gap-1 place-items-center rounded-lg">
                 {deck.map((cardImage, cardIndex) => (
-                    // console.log(cardImage.name === activeCardOne || cardImage.name === activeCardTwo)
                     <Card
                         key={cardIndex}
                         card={cardImage}
@@ -123,7 +119,7 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
                         showConfetti={showConfetti}
                     />
                 ))}
-                <MatchConfetti showConfetti={showConfetti} setShowConfetti={setShowConfetti}/>
+                <MatchConfetti showConfetti={showConfetti} currentPlayer={currentPlayer} setCurrentPlayer={setCurrentPlayer} setShowConfetti={setShowConfetti}/>
             </div>
             <div>
                 <div className="bg-boardBackground rounded-lg text-xl">

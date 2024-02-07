@@ -29,7 +29,6 @@ function Card({ card, selectedCard, isActive, isMatched, showConfetti }) {
             if (!isActive && !isMatched) {
                 toggleFlipped((state) => false);
             } else if (isMatched) {
-                console.log("Matched cad!");
                 // toggleFlipped(state => false);
             }
         }, 1250);
