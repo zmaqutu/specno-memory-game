@@ -3,7 +3,7 @@ import player1Image from "../../assets/images/player1.svg";
 import player2Image from "../../assets/images/player2.svg";
 import Card from "../Card/Card";
 import MatchConfetti from "./MatchConfetti";
-import { useSpring, a, useTransition } from "@react-spring/web";
+import { useSpring, a, useTransition, to } from "@react-spring/web";
 
 function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDeck}) {
     const [activeCardOne, setActiveCardOne] = useState(null);
@@ -105,23 +105,35 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
     }
 
      // grid items to be used in the transitions
-     const gridItems = deck.map((card, index) => {
-        return {
+     const gridItems = deck.map((card, index) => ({
             ...card,
             x: index % columns * 30,
             y: Math.floor(index / columns) * 70,
-        };
-    });
+    }));
     // console.log('gridItems',gridItems)
 
-    const transitions = useTransition(gridItems,{
-        from: ({ x, y, width, height }) => ({ x, y, width, height, opacity: 0 }),
-        enter: ({ x, y, width, height }) => ({ x, y, width, height, opacity: 1 }),
-        update: ({ x, y, width, height }) => ({ x, y, width, height }),
-        // leave: { height: 0, opacity: 0 },
-        config: { mass: 5, tension: 500, friction: 100 },
-        trail: 25
-      })
+    // const transitions = useTransition(gridItems,{
+    //     from: ({ x, y, width, height }) => ({ x, y, width, height, opacity: 0 }),
+    //     enter: ({ x, y, width, height }) => ({ x, y, width, height, opacity: 1 }),
+    //     update: ({ x, y, width, height }) => ({ x, y, width, height }),
+    //     // leave: { height: 0, opacity: 0 },
+    //     config: { mass: 5, tension: 500, friction: 100 },
+    //     trail: 25
+    //   })
+
+    
+    const transitions = useTransition(gridItems, {
+        // from: { x: 0, y: -100 },
+        from: ({ x, y }) => ({ x, y }),
+        enter: ({ x, y }) => ({ x, y }),
+        update:
+            ({ y }) =>
+            async (next, cancel) => {
+                await next({ y, x: 0 });
+            },
+        config: { tension: 300 },
+      });
+      console.log('transitions')
 
     return (
         <div className="grid grid-cols-6 gap-4 items-center mx-auto h-full mb-10 flex-1 w-11/12 font-bold ">
@@ -146,7 +158,7 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
                 )}
             </div>
             <div className="relative bg-boardBackground col-span-4 grid grid-cols-9 gap-1 place-items-center rounded-lg">
-                {/* {deck.map((cardImage, cardIndex) => (
+                {deck.map((cardImage, cardIndex) => (
                     <Card
                         key={cardIndex}
                         card={cardImage}
@@ -159,7 +171,7 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
                         showConfetti={showConfetti}
                         cardIndex={cardIndex}
                     />
-                ))} */}
+                ))}
                 {/* {
                     transitions(({ item, props, key }) => (
                         <a.div key={key} style={{ ...props, position: 'absolute' }}>
@@ -178,7 +190,8 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
                         </a.div>
                     ))
                 } */}
-                {transitions((style, item) => (
+                {/* { current transition div} */}
+                {/* {transitions((style, item) => (
                         <Card
                                 key={item.cardIndex}
                                 card={item}
@@ -192,7 +205,34 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
                                 cardIndex={item.cardIndex}
                                 style={style}
                             />
-                ))}
+                ))} */}
+                {/* {transitions(( item, props, key, cardIndex ) => {
+                    return (
+                        <a.div
+                            key={key}
+                            style={{
+                                transform: to(
+                                    [202, 132],
+                                    (x, y) => `translate(${x}px,${y}px)`
+                                ),
+                                // transform: props.x.to((x) => `translateX(${x}px)`),
+                            }}
+                        >
+                            <Card
+                                key={item.cardIndex}
+                                card={item}
+                                selectedCard={selectedCard}
+                                isActive={
+                                    item.name === activeCardOne ||
+                                    item.name === activeCardTwo
+                                }
+                                isMatched={item.isMatched}
+                                showConfetti={showConfetti}
+                                cardIndex={cardIndex}
+                            />
+                        </a.div>
+                    );
+                })} */}
                 <MatchConfetti
                     showConfetti={showConfetti}
                     currentPlayer={currentPlayer}

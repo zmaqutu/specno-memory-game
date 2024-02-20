@@ -37,19 +37,20 @@ function Card({ card, selectedCard, cardIndex, isActive, isMatched, showConfetti
             }
         }, 1250);
     }, [isActive, isMatched]);
-    // console.log(cardIndex, [bounds.x, bounds.y]);
+    // if(cardIndex === 0) console.log('bounds', bounds)
+    console.log(cardIndex, [bounds.x, bounds.y]);
     // console.log('style',style)
 
     return (
         <a.div ref={ref} className={`${ showConfetti ? 'invisible' : 'visible'} p-1 w-4/6 flex`} onClick={handleSelectedCard} style={style}>
             <a.img
-                src={card.imageSrc}
+                src={cardBack}
                 className="flex-shrink-0 will-change-[transform,opacity]"
                 alt=""
                 style={{ opacity: opacity.to((o) => 1 - o), transform }}
             />
             <a.img
-                src={cardBack}
+                src={card.imageSrc}
                 className="flex-shrink-0 ml-[-100%] will-change-[transform,opacity]"
                 alt=""
                 style={
