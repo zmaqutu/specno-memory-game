@@ -3,6 +3,8 @@ import player1Image from "../../assets/images/player1.svg";
 import player2Image from "../../assets/images/player2.svg";
 import Card from "../Card/Card";
 import MatchConfetti from "./MatchConfetti";
+import { useSpring, a, useTransition } from "@react-spring/web";
+
 function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDeck}) {
     const [activeCardOne, setActiveCardOne] = useState(null);
     const [activeCardTwo, setActiveCardTwo] = useState(null);
@@ -11,7 +13,19 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
     const [playerTwoScore, setPlayerTwoScore] = useState(0);
     const [showConfetti, setShowConfetti] = useState(false);
 
-    const suitColorMapping = {'Hearts': 'red', 'Diamonds': 'red', 'Clubs': 'black', 'Spades': 'black', 'Joker': 'joker'};
+    const columns = 9;
+    const rows = 6;
+
+    const suitColorMapping = {
+        Hearts: "red",
+        Diamonds: "red",
+        Clubs: "black",
+        Spades: "black",
+        Joker: "joker",
+    };
+
+    // console.log('deck', deck);
+   
 
     useEffect(() => {
         // shuffleDeck();
@@ -23,12 +37,12 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
         };
     }, []);
 
-	useEffect(() => {
-		if(restartGame){
-			// set both scores to zero
+    useEffect(() => {
+        if (restartGame) {
+            // set both scores to zero
             setPlayerOneScore(0);
             setPlayerTwoScore(0);
-		}
+        }
     }, [restartGame]);
 
     useEffect(() => {
@@ -48,9 +62,16 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
         const cardOneColor = suitColorMapping[activeCardOne.split("_")[1]];
         const cardTwoColor = suitColorMapping[activeCardTwo.split("_")[1]];
 
-        if ((cardOneRank === cardTwoRank && cardOneColor === cardTwoColor && activeCardOne !== activeCardTwo) ) {
+        if (
+            cardOneRank === cardTwoRank &&
+            cardOneColor === cardTwoColor &&
+            activeCardOne !== activeCardTwo
+        ) {
             for (const card of deck) {
-                if (card.name === activeCardOne || card.name === activeCardTwo) {
+                if (
+                    card.name === activeCardOne ||
+                    card.name === activeCardTwo
+                ) {
                     card.isMatched = true;
                 }
             }
@@ -83,6 +104,25 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
         }
     }
 
+     // grid items to be used in the transitions
+     const gridItems = deck.map((card, index) => {
+        return {
+            ...card,
+            x: index % columns * 30,
+            y: Math.floor(index / columns) * 70,
+        };
+    });
+    // console.log('gridItems',gridItems)
+
+    const transitions = useTransition(gridItems,{
+        from: ({ x, y, width, height }) => ({ x, y, width, height, opacity: 0 }),
+        enter: ({ x, y, width, height }) => ({ x, y, width, height, opacity: 1 }),
+        update: ({ x, y, width, height }) => ({ x, y, width, height }),
+        // leave: { height: 0, opacity: 0 },
+        config: { mass: 5, tension: 500, friction: 100 },
+        trail: 25
+      })
+
     return (
         <div className="grid grid-cols-6 gap-4 items-center mx-auto h-full mb-10 flex-1 w-11/12 font-bold ">
             <div>
@@ -106,7 +146,7 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
                 )}
             </div>
             <div className="relative bg-boardBackground col-span-4 grid grid-cols-9 gap-1 place-items-center rounded-lg">
-                {deck.map((cardImage, cardIndex) => (
+                {/* {deck.map((cardImage, cardIndex) => (
                     <Card
                         key={cardIndex}
                         card={cardImage}
@@ -117,9 +157,48 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
                         }
                         isMatched={cardImage.isMatched}
                         showConfetti={showConfetti}
+                        cardIndex={cardIndex}
                     />
+                ))} */}
+                {/* {
+                    transitions(({ item, props, key }) => (
+                        <a.div key={key} style={{ ...props, position: 'absolute' }}>
+                            <Card
+                                key={item.cardIndex}
+                                card={item}
+                                selectedCard={selectedCard}
+                                isActive={
+                                    item.name === activeCardOne ||
+                                    item.name === activeCardTwo
+                                }
+                                isMatched={item.isMatched}
+                                showConfetti={showConfetti}
+                                cardIndex={item.cardIndex}
+                            />
+                        </a.div>
+                    ))
+                } */}
+                {transitions((style, item) => (
+                        <Card
+                                key={item.cardIndex}
+                                card={item}
+                                selectedCard={selectedCard}
+                                isActive={
+                                    item.name === activeCardOne ||
+                                    item.name === activeCardTwo
+                                }
+                                isMatched={item.isMatched}
+                                showConfetti={showConfetti}
+                                cardIndex={item.cardIndex}
+                                style={style}
+                            />
                 ))}
-                <MatchConfetti showConfetti={showConfetti} currentPlayer={currentPlayer} setCurrentPlayer={setCurrentPlayer} setShowConfetti={setShowConfetti}/>
+                <MatchConfetti
+                    showConfetti={showConfetti}
+                    currentPlayer={currentPlayer}
+                    setCurrentPlayer={setCurrentPlayer}
+                    setShowConfetti={setShowConfetti}
+                />
             </div>
             <div>
                 <div className="bg-boardBackground rounded-lg text-xl">
@@ -147,5 +226,38 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
 
 export default GameBoard;
 
+// {
+//     transitions.map(({ item, props: { xy, ...rest }, key }) => {
+//         // console.log('in trans',xy)
+//         <a.div
+//             key={key}
+//             style={{
+//                 transform: xy.interpolate(
+//                     (x, y) => `translate3d(${x}px,${y}px,0)`
+//                 ),
+//                 ...rest,
+//             }}
+//         >
+//             {item.content}
+//         </a.div>;
+//     });
+// }
 
-
+// {
+//     transitions.map(({ item, props, key }) => (
+//         <animated.div key={key} style={{ ...props, position: 'absolute' }}>
+//             <Card
+//                 key={item.cardIndex}
+//                 card={item}
+//                 selectedCard={selectedCard}
+//                 isActive={
+//                     item.name === activeCardOne ||
+//                     item.name === activeCardTwo
+//                 }
+//                 isMatched={item.isMatched}
+//                 showConfetti={showConfetti}
+//                 cardIndex={item.cardIndex}
+//             />
+//         </animated.div>
+//     ))
+// }

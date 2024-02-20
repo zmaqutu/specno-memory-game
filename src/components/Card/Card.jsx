@@ -1,9 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import cardBack from "../../assets/images/cardBack.svg";
 import { useSpring, a } from "@react-spring/web";
+import useMeasure from 'react-use-measure'
 
-function Card({ card, selectedCard, isActive, isMatched, showConfetti }) {
+
+function Card({ card, selectedCard, cardIndex, isActive, isMatched, showConfetti, style }) {
     const [flipped, toggleFlipped] = useState(false);
+
+    const [ref, bounds] = useMeasure();
 
     const cardRank = card.name;
 
@@ -33,17 +37,19 @@ function Card({ card, selectedCard, isActive, isMatched, showConfetti }) {
             }
         }, 1250);
     }, [isActive, isMatched]);
+    // console.log(cardIndex, [bounds.x, bounds.y]);
+    // console.log('style',style)
 
     return (
-        <div className={`${ showConfetti ? 'invisible' : 'visible'} p-1 w-4/6 flex`} onClick={handleSelectedCard}>
+        <a.div ref={ref} className={`${ showConfetti ? 'invisible' : 'visible'} p-1 w-4/6 flex`} onClick={handleSelectedCard} style={style}>
             <a.img
-                src={cardBack}
+                src={card.imageSrc}
                 className="flex-shrink-0 will-change-[transform,opacity]"
                 alt=""
                 style={{ opacity: opacity.to((o) => 1 - o), transform }}
             />
             <a.img
-                src={card.imageSrc}
+                src={cardBack}
                 className="flex-shrink-0 ml-[-100%] will-change-[transform,opacity]"
                 alt=""
                 style={
@@ -52,7 +58,7 @@ function Card({ card, selectedCard, isActive, isMatched, showConfetti }) {
                         : { opacity, transform, rotateX: "180deg" }
                 }
             />
-        </div>
+        </a.div>
     );
 }
 
