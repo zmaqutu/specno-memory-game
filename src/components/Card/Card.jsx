@@ -4,7 +4,7 @@ import { useSpring, a } from "@react-spring/web";
 import useMeasure from 'react-use-measure'
 
 
-function Card({ card, selectedCard, cardIndex, isActive, isMatched, showConfetti, style }) {
+function Card({ card, selectedCard, cardIndex, isActive, isMatched, showConfetti, updateCardBounds }) {
     const [flipped, toggleFlipped] = useState(false);
 
     const [ref, bounds] = useMeasure();
@@ -37,12 +37,21 @@ function Card({ card, selectedCard, cardIndex, isActive, isMatched, showConfetti
             }
         }, 1250);
     }, [isActive, isMatched]);
-    // if(cardIndex === 0) console.log('bounds', bounds)
-    console.log(cardIndex, [bounds.x, bounds.y]);
-    // console.log('style',style)
 
+    // update the bounds in the parent component when they change
+    useEffect(() => {
+        // measure(bounds, cardIndex);
+        updateCardBounds(cardIndex, bounds.x,bounds.y)
+        if(cardIndex === 53) {
+            // console.log('bounds from Card', bounds.x, bounds.y)
+        }
+    
+        // console.log('boundsChanged')
+    }, [bounds]);
+
+    
     return (
-        <a.div ref={ref} className={`${ showConfetti ? 'invisible' : 'visible'} p-1 w-4/6 flex`} onClick={handleSelectedCard} style={style}>
+        <a.div ref={ref} className={`${ showConfetti ? 'invisible' : 'visible'} p-1 w-4/6 flex`} onClick={handleSelectedCard}>
             <a.img
                 src={cardBack}
                 className="flex-shrink-0 will-change-[transform,opacity]"

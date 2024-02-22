@@ -3,7 +3,8 @@ import player1Image from "../../assets/images/player1.svg";
 import player2Image from "../../assets/images/player2.svg";
 import Card from "../Card/Card";
 import MatchConfetti from "./MatchConfetti";
-import { useSpring, a, useTransition, to } from "@react-spring/web";
+import { useSpring, a, useTransition, to, animated } from "@react-spring/web";
+import useMeasure from 'react-use-measure';
 
 function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDeck}) {
     const [activeCardOne, setActiveCardOne] = useState(null);
@@ -16,6 +17,12 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
     const columns = 9;
     const rows = 6;
 
+    // const [ref,bounds] = useMeasure();
+    // const cardBounds = {}; // Object to store bounds for each card
+    const [cardBounds, setCardBounds] = useState({})
+    const [ref, bounds] = useMeasure()
+
+
     const suitColorMapping = {
         Hearts: "red",
         Diamonds: "red",
@@ -24,8 +31,6 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
         Joker: "joker",
     };
 
-    // console.log('deck', deck);
-   
 
     useEffect(() => {
         // shuffleDeck();
@@ -107,8 +112,8 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
      // grid items to be used in the transitions
      const gridItems = deck.map((card, index) => ({
             ...card,
-            x: index % columns * 30,
-            y: Math.floor(index / columns) * 70,
+            x: cardBounds[index]?.x,
+            y: cardBounds[index]?.y,
     }));
     // console.log('gridItems',gridItems)
 
@@ -123,7 +128,6 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
 
     
     const transitions = useTransition(gridItems, {
-        // from: { x: 0, y: -100 },
         from: ({ x, y }) => ({ x, y }),
         enter: ({ x, y }) => ({ x, y }),
         update:
@@ -133,7 +137,26 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
             },
         config: { tension: 300 },
       });
-      console.log('transitions')
+
+      function updateCardBounds(cardIndex, newX, newY){
+        cardBounds[cardIndex] = {x: newX, y: newY};
+        gridItems[cardIndex].x = newX
+        gridItems[cardIndex].y = newY
+        // setCardBounds(cardBounds);
+        // setCardBounds( prevState => {
+        //     return{
+        //         ...prevState,
+        //         [cardIndex] : {x: newX, y: newY}
+        //     }
+        // })
+        // setCardBounds(prevCardBounds => ({
+        //     ...prevCardBounds,
+        //     [cardIndex]: { newX, newY }
+        // }));
+      }
+      console.log('cardB',cardBounds[9])
+
+
 
     return (
         <div className="grid grid-cols-6 gap-4 items-center mx-auto h-full mb-10 flex-1 w-11/12 font-bold ">
@@ -143,6 +166,7 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
                         src={player1Image}
                         alt="Player 1"
                         className="w-full h-auto p-4"
+                        onClick={() => console.log('gridItems', gridItems)}
                     />
                     {playerOneName ? <p>{playerOneName}</p> : <p>Player 1</p>}
                     Score: {playerOneScore}
@@ -158,20 +182,22 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
                 )}
             </div>
             <div className="relative bg-boardBackground col-span-4 grid grid-cols-9 gap-1 place-items-center rounded-lg">
-                {deck.map((cardImage, cardIndex) => (
-                    <Card
-                        key={cardIndex}
-                        card={cardImage}
-                        selectedCard={selectedCard}
-                        isActive={
-                            cardImage.name === activeCardOne ||
-                            cardImage.name === activeCardTwo
-                        }
-                        isMatched={cardImage.isMatched}
-                        showConfetti={showConfetti}
-                        cardIndex={cardIndex}
-                    />
-                ))}
+                {/* {deck.map((cardImage, cardIndex) => (
+                    <a.div key={cardIndex} className="flex justify-center" ref={ref}>
+                        <Card
+                            key={cardIndex}
+                            card={cardImage}
+                            selectedCard={selectedCard}
+                            isActive={
+                                cardImage.name === activeCardOne ||
+                                cardImage.name === activeCardTwo
+                            }
+                            isMatched={cardImage.isMatched}
+                            showConfetti={showConfetti}
+                            cardIndex={cardIndex}
+                        />
+                    </a.div>
+                ))} */}
                 {/* {
                     transitions(({ item, props, key }) => (
                         <a.div key={key} style={{ ...props, position: 'absolute' }}>
@@ -206,22 +232,24 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
                                 style={style}
                             />
                 ))} */}
-                {/* {transitions(( item, props, key, cardIndex ) => {
+                {transitions(( item, props, key, cardIndex ) => {
                     return (
                         <a.div
                             key={key}
-                            style={{
-                                transform: to(
-                                    [202, 132],
-                                    (x, y) => `translate(${x}px,${y}px)`
-                                ),
-                                // transform: props.x.to((x) => `translateX(${x}px)`),
-                            }}
+                            // style={{
+                            //     transform: to(
+                            //         [202, 132],
+                            //         (x, y) => `translate(${x}px,${y}px)`
+                            //     ),
+                            //     // transform: props.x.to((x) => `translateX(${x}px)`),
+                            // }}
+                            className="flex justify-center"
                         >
                             <Card
                                 key={item.cardIndex}
                                 card={item}
                                 selectedCard={selectedCard}
+                                updateCardBounds={updateCardBounds}
                                 isActive={
                                     item.name === activeCardOne ||
                                     item.name === activeCardTwo
@@ -232,7 +260,7 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
                             />
                         </a.div>
                     );
-                })} */}
+                })}
                 <MatchConfetti
                     showConfetti={showConfetti}
                     currentPlayer={currentPlayer}
@@ -265,39 +293,3 @@ function GameBoard({ playerOneName, playerTwoName, restartGame, deck, shuffleDec
 }
 
 export default GameBoard;
-
-// {
-//     transitions.map(({ item, props: { xy, ...rest }, key }) => {
-//         // console.log('in trans',xy)
-//         <a.div
-//             key={key}
-//             style={{
-//                 transform: xy.interpolate(
-//                     (x, y) => `translate3d(${x}px,${y}px,0)`
-//                 ),
-//                 ...rest,
-//             }}
-//         >
-//             {item.content}
-//         </a.div>;
-//     });
-// }
-
-// {
-//     transitions.map(({ item, props, key }) => (
-//         <animated.div key={key} style={{ ...props, position: 'absolute' }}>
-//             <Card
-//                 key={item.cardIndex}
-//                 card={item}
-//                 selectedCard={selectedCard}
-//                 isActive={
-//                     item.name === activeCardOne ||
-//                     item.name === activeCardTwo
-//                 }
-//                 isMatched={item.isMatched}
-//                 showConfetti={showConfetti}
-//                 cardIndex={item.cardIndex}
-//             />
-//         </animated.div>
-//     ))
-// }
